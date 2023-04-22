@@ -1,0 +1,37 @@
+{% extends 'default.html' %} 
+ 
+{% load custom_filters %}
+
+{% block title %}
+    Все новости
+{% endblock title %}
+ 
+{% block content %}
+<br>
+    <h3> Всего статей: {{ news|length }} </h3>
+    <hr>
+
+    {% if news %} 
+        <table>
+            <tr>
+                <td><strong>Заголовок</strong></td>
+                <td><strong>Дата публикации</strong></td>
+                <td><strong>Статья</strong></td>
+            </tr>
+
+        {% for new in news %} 
+            <tr>
+                <td><a href="{{ new.pk }}"> {{ new.title|censor }}</a> </td>
+                    
+                <td> {{ new.dateCreation|date:'d M Y' }} </td>
+                
+                <td> {{ new.text|censor|truncatechars:50 }} </td> 
+            </tr>
+        {% endfor %}
+        </table>
+
+    {% else %} 
+        <h2>Статей нет!</h2>
+    {% endif %}
+
+{% endblock content %}
